@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}
+    LogIn
+{% endblock %}
+
+{% block login_link %}
+    active-nav-link
+{% endblock %}
+
+{% block content %}
+<!--    <form action="" method="POST">-->
+<!--        {% csrf_token %}-->
+<!--        <h1 class="form-head">LogIn Here</h1>-->
+<!--        <br>-->
+    <!--    <label for="username">Username</label>-->
+    <!--    <input type="text" name="username" id="username" placeholder="Enter a username">-->
+    <!--    <br><br>-->
+    <!--    <label for="password">Password</label>-->
+    <!--    <input type="password" name="password" id="password" placeholder="Enter your password">-->
+
+<!--        {{ form|crispy }}-->
+<!--        <br><br>-->
+<!--        <button class="form-btn" type="submit">LogIn</button>-->
+<!--        <br><br>-->
+<!--        <p><a href="{% url 'password_reset' %}" class="link">Forgot Password?</a></p>-->
+<!--        <p>or</p>-->
+<!--        <p>Need an account then <a href="{% url 'register' %}" class="link">SignUp</a> here...</p>-->
+
+<!--    </form>-->
+
+    <div class="signup">
+        <div class="container">
+          <div class="signup-content">
+            <div class="signup-form">
+              <h2 class="form-title">Sign In</h2>
+              <form action="" method="POST" class="register-form">
+                  {% csrf_token %}
+                <div class="form-group">
+                  {{ form|crispy }}
+                  <br />
+                  <button type="submit" class="form-submit">Log In</button>
+                </div>
+                  <a href="{% url 'password_reset' %}" class="account-link" style="text-align: start;"
+                  >Forgot Password?
+                </a>
+              </form>
+            </div>
+            <div class="signup-image">
+              <img src="{% static './images/signin-image.jpg' %}" alt="" />
+                <p class="account-link">
+                Need an account then
+                <a href="{% url 'register' %}">SignUp</a> here...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}

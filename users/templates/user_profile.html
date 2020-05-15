@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ object.first_name }}'s Profile
+{% endblock %}
+
+{% block profile_link %}
+    {% if object == user %}
+        active-nav-link
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="profile">
+      <div class="media">
+          <div class="media-content secondary-content">
+            <img class="profile-img" src="{{ user.profile.image.url }}">
+            <div class="media-body">
+                <h2 class="account-heading">{{ user.username }}</h2>
+                <p class="text-secondary">{{ user.email }}</p>
+
+                {% if object == user %}
+                    <a class="detail-btn update-profile in-profile" href="{% url 'profile' %}">Edit Profile</a>
+                {% endif %}
+
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <div style="height: 20px"></div>
+
+    <div class="content-wrapper">
+        <div class="portfolio-items-wrapper">
+            {% for blog in page_obj %}
+                <div class="portfolio-item-wrapper">
+                    <div
+                            class="portfolio-img-background"
+                            style="background-image: url({{ blog.dp_image.url }})"
+                    ></div>
+                    <div class="img-text-wrapper">
+                        <div class="logo-wrapper">
+                            <img src="{{ blog.icon_image.url }}" alt=""/>
+                        </div>
+                        <div class="subtitle">
+                            {{ blog.description }}
+                        </div>
+                        <a class="btn-detail" href="{% url 'blog-detail' blog.id %}" style="margin-bottom: 30px;">Details</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj.paginator.num_pages > 1 %}
+
+            <div class="pagination">
+
+                {% if page_obj.has_previous %}
+                    <a class="page-text" href="?page=1">First</a>
+                    <a class="page-text" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="page-current" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="page-text" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a class="page-text" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="page-text" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

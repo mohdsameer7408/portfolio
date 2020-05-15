@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block about_link %}
+    active-nav-link
+{% endblock %}
+
+{% block content %}
+
+    <div class="content-wrapper">
+        <div class="two-column-wrapper">
+            <div class="profile-image-wrapper">
+                <img src="{% static './images/pic13.jpg' %}" alt=""/>
+            </div>
+            <div class="profile-content-wrapper">
+                <h1>Hi, thanks for visiting my site.</h1>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, quos
+                    eos. Iste sequi aspernatur distinctio nostrum debitis voluptatibus
+                    odio ut, at quo deserunt optio amet facere ex sint praesentium?
+                    Atque repellendus quasi dolores reiciendis dicta? Cumque itaque
+                    error eos numquam fuga. Sit culpa rem voluptatum voluptatibus
+                    tenetur vel dignissimos quam.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+                    fugit quo, aut velit sint fugiat dolorum est? At maiores eos,
+                    obcaecati asperiores, harum consequatur accusantium ratione magni
+                    eveniet unde commodi.
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

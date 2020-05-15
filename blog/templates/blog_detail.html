@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    BlogDetail
+{% endblock %}
+
+{% block content %}
+
+    <h1 style="margin-left: 5%;">Created by {{ object.author.username }}...</h1>
+
+    <div class="details-wrapper">
+        <div class="details-left" style="background-image: url({{ object.dp_image.url }});">
+        </div>
+        <div class="details-right">
+            <div class="details-logo" style="background-image: url({{ object.icon_image.url }});">
+            </div>
+            <div class="details-subtitle">
+                {{ object.description }}
+            </div>
+        </div>
+    </div>
+
+    <div class="detail-btn-container">
+
+        {% if object.author == user %}
+            <a class="detail-btn" href="{% url 'blog-update' blog.id %}">Update</a>
+            <a class="detail-btn detail-delete-btn" href="{% url 'blog-delete' blog.id %}">Delete</a>
+        {% endif %}
+
+    </div>
+
+
+{% endblock %}
+

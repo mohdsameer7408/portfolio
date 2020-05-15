@@ -1,0 +1,122 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>
+        Portfolio |{% block title %}{% endblock %}
+    </title>
+    <!-- css -->
+    <link rel="stylesheet" href="{% static './css/styles.css' %}" type="text/css"/>
+    <!-- form css   -->
+    <link rel="stylesheet" href="{% static './css/main.css' %}" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <div class="nav-wrapper" id="top">
+        <label for="toggle" class="toolbar-icon">&#9776</label>
+        <input type="checkbox" id="toggle" />
+        <div class="left-side">
+            <div class="nav-link-wrapper {% block link %} {% endblock %}">
+                <a href="{% url 'home' %}">HOME</a>
+            </div>
+            <div class="nav-link-wrapper {% block about_link %} {% endblock %}">
+                <a href="{% url 'about' %}">ABOUT</a>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="nav-link-wrapper {% block blog_link %} {% endblock %}">
+                    <a href="{% url 'blog-create' %}">Create Blog</a>
+                </div>
+                <div class="nav-link-wrapper {% block profile_link %} {% endblock %}">
+                    <a href="{% url 'user-profile' user.username %}">Hey! {{ user.first_name }}</a>
+                </div>
+                <div class="nav-link-wrapper">
+                    <a href="{% url 'logout' %}">LogOut</a>
+                </div>
+            {% else %}
+                <div class="nav-link-wrapper {% block signup_link %} {% endblock %}">
+                    <a href="{% url 'register' %}">SignUp</a>
+                </div>
+                <div class="nav-link-wrapper {% block login_link %} {% endblock %}">
+                    <a href="{% url 'login' %}">LogIn</a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="right-side">
+            <div class="brand">
+                <div><a href="{% url 'home' %}">codeArt</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 100px"></div>
+
+    {% if messages %}
+        <div class="">
+            {% for message in messages %}
+
+                <div class="alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+
+            {% endfor%}
+        </div>
+    {% endif %}
+
+    {% block content %}
+    {% endblock %}
+
+    <div style="height: 55px"></div>
+
+    <div class="arrow">
+        <a href="#top" style="text-decoration: none; color:#000; margin-top: 10px; display: block;">&uArr;</a>
+    </div>
+  <div class="footer">
+      <p>
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        All rights reserved |
+        <a href="#" target="_blank" style="color:#fff">codeArt</a>
+      </p>
+  </div>
+
+</div>
+</body>
+
+<script>
+
+    const portfolioItems = document.querySelectorAll(".portfolio-item-wrapper");
+    portfolioItems.forEach(portfolioItem => {
+      portfolioItem.addEventListener("mouseover", () => {
+        portfolioItem.childNodes[1].classList.add("img-darken");
+      });
+
+      portfolioItem.addEventListener("mouseout", () => {
+        portfolioItem.childNodes[1].classList.remove("img-darken");
+      });
+    });
+
+    window.onscroll = function () {
+      scrollFunction();
+    };
+
+    function scrollFunction() {
+      if (
+        document.body.scrollTop > 50 ||
+        document.documentElement.scrollTop > 50
+      ) {
+        document.getElementsByClassName("nav-wrapper")[0].style.padding =
+          "10px 38px";
+      } else {
+        document.getElementsByClassName("nav-wrapper")[0].style.padding =
+          "38px";
+      }
+    }
+
+</script>
+</html>
